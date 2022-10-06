@@ -58,17 +58,13 @@ def construct(path, parent, node):
     else:
         add_file(newpath)
 
-image_toggle = False
 def add_file(path):
-    global image_toggle
-    number = random.randint(1, 10)
-    if number == 1:
-        file, ext = "suspicious", ".jpg" if image_toggle else ".txt"
-        image_toggle = not image_toggle
-    elif 2 <= number <= 7:
-        file, ext = "fishyfile", ".txt"
+    if random.randrange(2) == 1: # increase number for less amongi
+        file = "suspicious"
     else:
-        file, ext = "fish", ".jpg"
+        file = "fish"
+
+    ext = random.choice((".jpg",".txt"))
     
     sp.call(f"cp {file+ext} {os.path.join(*path)}{ext}", shell=True)
 
