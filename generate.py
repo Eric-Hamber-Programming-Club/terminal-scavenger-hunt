@@ -3,7 +3,7 @@ import sys
 import os
 import subprocess as sp
 
-MAXIMUM_NODES = 200
+MAXIMUM_NODES = 75
 
 # load words
 with open("words.txt", "r") as f:
@@ -31,7 +31,6 @@ for i in range(n-2):
     prufer[x] += 1
     pruferlist.append(x)
 
-
 for el in pruferlist:
     for i in range(n):
         if prufer[i] == 1:
@@ -57,7 +56,19 @@ def construct(path, parent, node):
         for child in tree[node]:
             construct(newpath, node, child)
     else:
-        sp.call(f"cp blankfile.txt {os.path.join(*newpath)}", shell=True)
+        add_file(newpath)
+
+def add_file(path):
+    number = random.randint(1, 10)
+    if number == 1:
+        file, ext = "suspicious", ".txt"
+    elif 2 <= number <= 7:
+        file, ext = "fishyfile", ".txt"
+    else:
+        file, ext = "fish", ".jpg"
+    
+    sp.call(f"cp {file+ext} {os.path.join(*path)}{ext}", shell=True)
+
 
 construct([], -1, 0)
 print("folders generated.")
