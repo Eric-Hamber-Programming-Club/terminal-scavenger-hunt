@@ -59,13 +59,13 @@ def construct(path, parent, node):
         add_file(newpath)
 
 def add_file(path):
-    if random.randrange(2) == 1: # increase number for less amongi
+    if random.randrange(10) <= 3: # increase number for less amongi
         file = "suspicious"
     else:
         file = "fish"
 
     ext = random.choice((".jpg",".txt"))
-    
+    if file == "suspicious": ext = ext.upper()    
     sp.call(f"cp {file+ext} {os.path.join(*path)}{ext}", shell=True)
 
 
