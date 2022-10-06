@@ -1,6 +1,7 @@
 import random
 import sys
 import os
+import subprocess as sp
 
 MAXIMUM_NODES = 200
 
@@ -39,5 +40,27 @@ for el in pruferlist:
             prufer[i] -= 1
             prufer[el] -= 1
             break
+
+n1, n2 = [i for i in prufer if prufer[i] != 0]
+tree[n1].append(n2)
+tree[n2].append(n1)
+tree[0].append(-1)
+
+names = random.sample(words, n)
+
+# create directories
+def construct(path, parent, node):
+    newpath = path + [names[node]]
+    tree[node].remove(parent)
+    if tree[node]:
+        os.mkdir(os.path.join(*newpath))
+        for child in tree[node]:
+            construct(newpath, node, child)
+    else:
+        sp.call(f"cp blankfile.txt {os.path.join(*newpath)}", shell=True)
+
+construct([], -1, 0)
+print("folders generated.")
+        
 
 
