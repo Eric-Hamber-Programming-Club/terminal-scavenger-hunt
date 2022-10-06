@@ -65,7 +65,7 @@ def add_file(path):
         file = "fish"
 
     ext = random.choice((".jpg",".txt"))
-    if file == "suspicious": ext = ext.upper()    
+    
     sp.call(f"cp {file+ext} {os.path.join(*path)}{ext}", shell=True)
 
 
