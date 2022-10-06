@@ -58,10 +58,13 @@ def construct(path, parent, node):
     else:
         add_file(newpath)
 
+image = False
 def add_file(path):
+    global image
     number = random.randint(1, 10)
     if number == 1:
-        file, ext = "suspicious", ".txt"
+        file, ext = "suspicious", ".jpg" if image else ".txt"
+        image = not image
     elif 2 <= number <= 7:
         file, ext = "fishyfile", ".txt"
     else:
